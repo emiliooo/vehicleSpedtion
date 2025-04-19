@@ -16,7 +16,7 @@ public class Telemetry {
     @Column(name = "Telemetry_Data_ID", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Vehicle_ID")
     private Vehicle vehicle;
 
