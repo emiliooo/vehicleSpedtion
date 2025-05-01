@@ -2,11 +2,13 @@ package com.example.vehicleSpedition.controller;
 import com.example.vehicleSpedition.model.MaintenanceAndRepair;
 import com.example.vehicleSpedition.repository.MaintenanceAndRepairRepository;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class MaintenanceAndRepairController {
 
     MaintenanceAndRepairRepository maintenanceAndRepairRepository;

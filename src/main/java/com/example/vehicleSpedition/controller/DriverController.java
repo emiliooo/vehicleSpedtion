@@ -8,6 +8,7 @@ import com.example.vehicleSpedition.model.Driver;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/secure")
 public class DriverController {
 
     private DriverService driverService;
