@@ -23,7 +23,7 @@ public class JwtFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        // Możesz zainicjalizować coś, jeśli potrzebujesz
+        // Możesz zainicjalizować coś, jeśli potrze§bujesz
     }
 
     @Override
@@ -34,7 +34,7 @@ public class JwtFilter implements Filter {
         String authHeader = request.getHeader("Authorization");
         String requestUri = request.getRequestURI();
 
-        if (requestUri.equals("/api/auth/login")) {
+        if (requestUri.equals("/api/auth/login") || requestUri.equals("/api/auth/register")) {
             filterChain.doFilter(servletRequest, servletResponse); // Przechodzimy dalej
             return;
         }

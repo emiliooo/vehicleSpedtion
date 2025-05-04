@@ -3,6 +3,7 @@ import com.example.vehicleSpedition.dto.AuthResponse;
 import com.example.vehicleSpedition.dto.RegisterRequest;
 import com.example.vehicleSpedition.dto.User;
 import com.example.vehicleSpedition.service.JwtUtil;
+import com.example.vehicleSpedition.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,20 +14,17 @@ import org.springframework.web.bind.annotation.*;
 public class RegistrationController {
 
     @Autowired
-    private JwtUtil jwtUtil;
-   /// private final UserService userService;
+    private final UserService userService;
 
 
-//    @PostMapping("/register")
-//    public AuthResponse register(@RequestBody RegisterRequest request) {
-//        return userService.register(request);
-//    }
+    @PostMapping("/register")
+    public AuthResponse register(@RequestBody RegisterRequest request) {
+        return userService.register(request);
+    }
 
     @PostMapping("/login")
-    public String login( @RequestBody User user) {
-        String token = jwtUtil.generateToken(user.getUsername());
-        return (token);
-
+    public AuthResponse login( @RequestBody User user) {
+        return userService.login(user);
     }
 
 }
