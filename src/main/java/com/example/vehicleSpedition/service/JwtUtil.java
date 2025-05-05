@@ -27,6 +27,7 @@ public class JwtUtil {
     }
 
     public String generateToken(String username) {
+        long EXPIRATION_TIME_MS = 15 * 60 * 10000;
         long currentTime = System.currentTimeMillis();
         return Jwts.builder()
                 .setSubject(username)

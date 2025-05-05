@@ -3,6 +3,10 @@ package com.example.vehicleSpedition.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import java.util.Collection;
+import java.util.Collections;
 
 @Getter
 @Setter
@@ -25,5 +29,9 @@ public class SystemUser {
 
     @Column(name = "Password")
     private String password;
+
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singleton(new SimpleGrantedAuthority(userRole));
+    }
 
 }

@@ -10,6 +10,10 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -18,8 +22,15 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class JwtFilter implements Filter {
 
+    private CustomUserDetailsService customUserDetailsService;
+
     @Value("${jwt.secret}")
     private String secret;
+
+    public JwtFilter(CustomUserDetailsService customUserDetailsService) {
+        this.customUserDetailsService = customUserDetailsService;
+    }
+
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -51,6 +62,18 @@ public class JwtFilter implements Filter {
                     .parseClaimsJws(token)
                     .getBody();
 
+            String username = claims.getSubject();
+
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+
+                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities());
+
+                auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(auth);
+            }
+
             servletRequest.setAttribute("claims", claims);
         } catch (Exception e) {
             throw new ServletException("Invalid JWT token: " + e.getMessage());
@@ -59,8 +82,4 @@ public class JwtFilter implements Filter {
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
-    @Override
-    public void destroy() {
-        // Możesz zwolnić zasoby, jeśli trzeba
-    }
 }
