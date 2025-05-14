@@ -24,6 +24,10 @@ public class DriverService {
        return DriverRepository.save(driver);
    }
 
+   public Driver updateDriver(Driver driver) {
+       return DriverRepository.save(driver);
+   }
+
    public Driver findDriverById(Integer IDdriver) {
        return DriverRepository.findDriverByDriverId(IDdriver);
    }

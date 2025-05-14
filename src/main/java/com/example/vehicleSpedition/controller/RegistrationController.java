@@ -15,7 +15,6 @@ public class RegistrationController {
     @Autowired
     private final UserService userService;
 
-
     @PostMapping("/register")
     public AuthResponse register(@RequestBody RegisterRequest request) {
         return userService.register(request);

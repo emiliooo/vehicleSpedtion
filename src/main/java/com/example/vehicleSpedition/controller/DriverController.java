@@ -28,8 +28,24 @@ public class DriverController {
         return ResponseEntity.status(HttpStatus.CREATED).body(saveddriver);
     }
 
-    @DeleteMapping("/driverID")
-    public ResponseEntity<Void>  deleteDriver(@PathVariable Long id) {
+    @PutMapping("/driverID/{id}")
+    public ResponseEntity<Driver> updateDriver(@PathVariable Integer id, @RequestBody Driver driver) {
+        Driver existingDriver = driverService.findDriverById(id);
+        if (existingDriver == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        existingDriver.setFullName(driver.getFullName());
+        existingDriver.setLicenseNumber(driver.getLicenseNumber());
+        existingDriver.setContactPhone(driver.getContactPhone());
+        existingDriver.setDriverId(driver.getDriverId());
+
+        Driver updatedDriver = driverService.updateDriver(existingDriver);
+        return new ResponseEntity<>(updatedDriver, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/driverID{id}")
+    public ResponseEntity<Void> deleteDriver(@PathVariable Long id) {
         driverService.deleteDriver(id);
         return ResponseEntity.noContent().build();
     }
