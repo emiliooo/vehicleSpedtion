@@ -29,10 +29,6 @@ public class MaintencanceAndRepairService {
          return maintenanceAndRepairRepository.findById(id).orElse(null);
     }
 
-    public MaintenanceAndRepair AddMaintenanceAndRepair(MaintenanceAndRepair maintenanceAndRepair) {
-         return maintenanceAndRepairRepository.save(maintenanceAndRepair);
-    }
-
     public MaintenanceAndRepair updateMaintenanceAndRepair(MaintenanceAndRepair maintenanceAndRepair) {
          return maintenanceAndRepairRepository.save(maintenanceAndRepair);
     }

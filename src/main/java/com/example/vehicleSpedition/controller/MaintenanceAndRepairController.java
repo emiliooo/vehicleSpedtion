@@ -4,14 +4,13 @@ import com.example.vehicleSpedition.service.MaintencanceAndRepairService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/secure")
 public class MaintenanceAndRepairController {
 
-    private MaintencanceAndRepairService MaintencanceAndRepairService;
+    private final MaintencanceAndRepairService MaintencanceAndRepairService;
 
     MaintenanceAndRepairController(MaintencanceAndRepairService MaintencanceAndRepairService) {
         this.MaintencanceAndRepairService = MaintencanceAndRepairService;
@@ -46,5 +45,6 @@ public class MaintenanceAndRepairController {
         MaintenanceAndRepair updated = MaintencanceAndRepairService.updateMaintenanceAndRepair(existing);
         return ResponseEntity.ok(updated);
     }
+
 
 }

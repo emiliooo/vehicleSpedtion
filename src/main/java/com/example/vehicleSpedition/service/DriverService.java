@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public class DriverService {
 
-   private DriverRepository DriverRepository;
+   private final DriverRepository DriverRepository;
 
    @Autowired
    DriverService(DriverRepository driverRepository) {
